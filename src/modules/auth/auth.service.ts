@@ -54,7 +54,7 @@ export class AuthService {
             email: isExist.email,
             role: isExist.role
         }, {
-            secret: 'post-user-nest'
+            secret: 'simple-user-management-system-nest-js'
         })
         return {
             message: 'success',

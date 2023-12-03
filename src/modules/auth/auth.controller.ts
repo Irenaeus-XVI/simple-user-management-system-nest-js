@@ -19,6 +19,5 @@ export class AuthController {
     @HttpCode(200)
     signIn(@Body() body: signInDto) {
         return this._AuthService.handleLogIn(body)
-
     }
 }
