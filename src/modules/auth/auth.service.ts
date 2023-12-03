@@ -51,7 +51,8 @@ export class AuthService {
 
         const token = this.jwt.sign({
             id: isExist._id,
-            email: isExist.email
+            email: isExist.email,
+            role: isExist.role
         }, {
             secret: 'post-user-nest'
         })
