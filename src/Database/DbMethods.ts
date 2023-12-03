@@ -15,5 +15,13 @@ export class dbMethods {
         return document
     }
 
+    async updateById(model: any, userId: string, data: any) {
+        const document = await model.findByIdAndUpdate(userId, data, { new: true })
+        return document
+    }
 
+    async removeById(model: any, userId: string) {
+        const document = await model.findByIdAndDelete(userId)
+        return document
+    }
 }
