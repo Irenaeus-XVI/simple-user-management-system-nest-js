@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, Post, Put, Req, UseGuards } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put, Req, UseGuards } from '@nestjs/common';
 import { AuthGuard } from '../../guard/auth/auth.guard';
 import { UserService } from './user.service';
 import { addUserDto } from './dto/addUser.dto';
@@ -27,20 +27,16 @@ export class UserController {
 
 
 
-    @Put('updateUser')
+    @Put('updateUser/:id')
     @UseGuards(AuthGuard)
-    updateUser(@Req() request: updateUserDto, @Body() body: any) {
-        const userId = request['user']._id
+    updateUser(@Param('id') userId: string, @Body() body: any) {
         return this.userService.updateUser(userId, body)
-
     }
 
 
-    @Delete('deleteUser')
+    @Delete('deleteUser/:id')
     @UseGuards(AuthGuard)
-    deleteUser(@Req() request: updateUserDto) {
-        const userId = request['user']._id
+    deleteUser(@Param('id') userId: string,) {
         return this.userService.deleteUser(userId)
-
     }
 }

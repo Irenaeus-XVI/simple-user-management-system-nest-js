@@ -3,7 +3,6 @@ import { InjectModel } from '@nestjs/mongoose';
 import { User } from "../../Database/Schemas/user.schema";
 import { Model } from "mongoose";
 import { dbMethods } from "../../Database/DbMethods";
-import * as bcrypt from 'bcrypt';
 import { addUserDto } from './dto/addUser.dto';
 import { updateUserDto } from './dto/updateUser.dto';
 @Injectable()
@@ -14,16 +13,16 @@ export class UserService {
         private readonly DbMethods: dbMethods,
     ) { }
 
+
+    
     async addUser(data: addUserDto) {
-        const { email, password } = data
+        const { email } = data
         const isExist = await this.DbMethods.findOneDocuments(this.userModel, { email })
 
         if (isExist) {
             throw new ConflictException('email is already exist')
         }
 
-        const hash = bcrypt.hashSync(password, 8)
-        data.password = hash
         const user = await this.DbMethods.createDocument(this.userModel, data)
         return {
             message: 'success',

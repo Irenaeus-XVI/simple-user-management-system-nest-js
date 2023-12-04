@@ -26,8 +26,8 @@ export class AuthService {
             throw new ConflictException('email is already exist')
         }
 
-        const hash = bcrypt.hashSync(password, 8)
-        const user = await this.DbMethods.createDocument(this.userModel, { userName, email, password: hash, role })
+
+        const user = await this.DbMethods.createDocument(this.userModel, { userName, email, password, role })
         return {
             message: 'success',
             user
@@ -43,11 +43,11 @@ export class AuthService {
         if (!isExist) {
             throw new BadRequestException('You Have To Register First')
         }
+
         const match = await bcrypt.compare(password, isExist['password'])
         if (!match) {
             throw new BadRequestException('Wrong Password')
         }
-
 
         const token = this.jwt.sign({
             id: isExist._id,
